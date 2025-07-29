@@ -3,63 +3,248 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Follower TikTok</title>
+  <title>Follower TikTok - ferdysosmed</title>
   <link rel="stylesheet" href="../assets/css/style.css">
+  <style>
+    /* CSS untuk Modal Pop-up */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.7);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 10000;
+      padding: 15px;
+      display: none; /* Default tersembunyi */
+    }
+    .modal-content {
+      background-color: #2a2a2a;
+      padding: 25px;
+      border-radius: 15px;
+      width: 100%;
+      max-width: 500px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      border: 1px solid #444;
+    }
+    .modal-content h3 { margin: 0; color: #76ff03; text-align: center; }
+    .modal-content p { margin: 0; text-align: center; font-size: 14px; color: #ccc; }
+    .modal-content input {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #555;
+      background-color: #1e1e1e;
+      color: #e0e0e0;
+      border-radius: 8px;
+      font-size: 16px;
+      box-sizing: border-box;
+    }
+    .modal-buttons { display: flex; justify-content: flex-end; gap: 10px; margin-top: 10px; }
+    .button-secondary { background-color: #444; }
+    .button-secondary:hover { background-color: #555; }
+    .toast-notification {
+        position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
+        background-color: #28a745; color: white; padding: 12px 20px;
+        border-radius: 8px; font-weight: bold; z-index: 10001;
+    }
+  </style>
 </head>
 <body>
   <!-- Ikon Keranjang -->
   <div style="position: fixed; bottom: 80px; right: 20px; z-index: 9999;">
     <a href="../cart.html" style="position: relative; display: inline-block;">
       <img src="../assets/img/keranjang.png" alt="Keranjang" style="width: 65px; height: 65px;">
-      <span id="cart-count"></span>
+      <span id="cart-count" class="cart-badge" style="display: none;"></span>
     </a>
   </div>
-  
+
   <div class="container">
     <h1>Follower TikTok</h1>
     <div class="bubble">
       <p>Pilih paket sesuai kebutuhan kamu:</p>
       
-        <!-- POLA BARU YANG BENAR -->
-        <div class="service-card">
-          <p><strong>100 Follower</strong><br>Harga : Rp 8.000</p>
-          <div class="button-container">
-            <!-- Tombol Pesan: action=order -->
-            <a href="../inputlink.html?product=100+Follower+TikTok&price=8000&action=order&whatsappText=Order+TikTok+Follower+100+=+Rp+8.000&source=../tiktok/follower.html" class="button">Pesan</a>
-            <!-- Tombol Keranjang: action=cart -->
-            <a href="../inputlink.html?product=100+Follower+TikTok&price=8000&action=cart&source=../tiktok/follower.html" class="add-to-cart">Tambah ke Keranjang</a>
-          </div>
+      <!-- Pola Service Card yang Baru -->
+      <div class="service-card">
+        <p><strong>100 Follower</strong><br>Harga : Rp 8.000</p>
+        <div class="button-container">
+          <button class="button order-button" data-product="100 Follower TikTok" data-price="8000">Pesan</button>
+          <button class="add-to-cart-button" data-product="100 Follower TikTok" data-price="8000">Tambah ke Keranjang</button>
         </div>
-        
-        <div class="service-card">
-          <p><strong>200 Follower</strong><br>Harga : Rp 16.000</p>
-          <div class="button-container">
-            <a href="/inputlink.html?product=200+Follower+TikTok&price=16000&action=order&whatsappText=Order+TikTok+Follower+200+=+Rp+16.000&source=/tiktok/follower.html" class="button">Pesan</a>
-            <a href="/inputlink.html?product=200+Follower+TikTok&price=16000&action=cart&source=/tiktok/follower.html" class="add-to-cart">Tambah ke Keranjang</a>
-          </div>
+      </div>
+      
+      <div class="service-card">
+        <p><strong>200 Follower</strong><br>Harga : Rp 16.000</p>
+        <div class="button-container">
+          <button class="button order-button" data-product="200 Follower TikTok" data-price="16000">Pesan</button>
+          <button class="add-to-cart-button" data-product="200 Follower TikTok" data-price="16000">Tambah ke Keranjang</button>
         </div>
+      </div>
 
-        <!-- Lanjutkan pola yang sama untuk semua produk di bawah ini -->
-
-        <div class="service-card">
-          <p><strong>1.000 Follower</strong><br>Harga : Rp 80.000</p>
-          <div class="button-container">
-            <a href="/inputlink.html?product=1.000+Follower+TikTok&price=80000&action=order&whatsappText=Order+TikTok+Follower+1.000+=+Rp+80.000&source=/tiktok/follower.html" class="button">Pesan</a>
-            <a href="/inputlink.html?product=1.000+Follower+TikTok&price=80000&action=cart&source=/tiktok/follower.html" class="add-to-cart">Tambah ke Keranjang</a>
-          </div>
+      <!-- Lanjutkan pola yang sama untuk semua produk lainnya... -->
+      <div class="service-card">
+        <p><strong>1.000 Follower</strong><br>Harga : Rp 80.000</p>
+        <div class="button-container">
+          <button class="button order-button" data-product="1.000 Follower TikTok" data-price="80000">Pesan</button>
+          <button class="add-to-cart-button" data-product="1.000 Follower TikTok" data-price="80000">Tambah ke Keranjang</button>
         </div>
-        
-        <!-- ...dan seterusnya hingga produk terakhir -->
-        
+      </div>
+
     </div>
     <a href="index.html" class="button">Kembali</a>
   </div>
-  
-  <!-- Memuat cart.js untuk memperbarui ikon keranjang -->
-  <script src="../assets/js/cart.js"></script>
-  
-  <div style="text-align: center; padding: 20px 0; margin-top: 30px; color: #555; font-size: 14px;">
-    Disarankan untuk membaca <a href="/syarat-dan-ketentuan.html" style="text-decoration: underline; color: #555;">Syarat dan Ketentuan</a>
+
+  <!-- Modal untuk Input Link -->
+  <div id="input-modal" class="modal-overlay">
+    <div class="modal-content">
+      <h3 id="modal-title">Masukkan Link Target</h3>
+      <p id="modal-product-name"></p>
+      <input type="url" id="target-link-input" placeholder="Contoh: https://www.tiktok.com/@username/..." required>
+      <div class="modal-buttons">
+        <button id="modal-cancel" class="button button-secondary">Batal</button>
+        <button id="modal-confirm" class="button">Konfirmasi</button>
+      </div>
+    </div>
   </div>
+
+  <!-- Firebase SDK -->
+  <script type="module">
+    // Konfigurasi Firebase Anda akan disisipkan di sini secara otomatis oleh sistem
+    const firebaseConfig = JSON.parse(typeof __firebase_config !== 'undefined' ? __firebase_config : '{}');
+    const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+
+    // Import fungsi yang diperlukan dari Firebase SDK
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+    import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+    import { getFirestore, collection, addDoc, onSnapshot, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+    // Inisialisasi Firebase
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    let userId = null;
+
+    // Mengelola status otentikasi pengguna
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        // Pengguna sudah login (termasuk anonim)
+        userId = user.uid;
+        console.log("User authenticated with UID:", userId);
+        listenToCartChanges();
+      } else {
+        // Pengguna belum login, lakukan login anonim
+        signInAnonymously(auth).catch((error) => {
+          console.error("Anonymous sign-in failed:", error);
+        });
+      }
+    });
+
+    // === Logika Modal & Database ===
+    const modal = document.getElementById('input-modal');
+    const modalProductName = document.getElementById('modal-product-name');
+    const targetLinkInput = document.getElementById('target-link-input');
+    const confirmButton = document.getElementById('modal-confirm');
+    const cancelButton = document.getElementById('modal-cancel');
+
+    let currentProduct = null;
+    let currentAction = null; // 'order' atau 'cart'
+
+    function showModal(product, price, action) {
+      currentProduct = { name: product, price: parseInt(price) };
+      currentAction = action;
+      modalProductName.textContent = `${product} - Rp ${currentProduct.price.toLocaleString('id-ID')}`;
+      modal.style.display = 'flex';
+      targetLinkInput.value = '';
+      targetLinkInput.focus();
+    }
+
+    function hideModal() {
+      modal.style.display = 'none';
+    }
+    
+    function showToast(message) {
+        const existingToast = document.querySelector('.toast-notification');
+        if (existingToast) existingToast.remove();
+        const toast = document.createElement("div");
+        toast.className = 'toast-notification';
+        toast.textContent = message;
+        document.body.appendChild(toast);
+        setTimeout(() => toast.remove(), 3000);
+    }
+
+    // Event listener untuk semua tombol di halaman
+    document.addEventListener('click', function(e) {
+      if (e.target.matches('.order-button')) {
+        const product = e.target.dataset.product;
+        const price = e.target.dataset.price;
+        showModal(product, price, 'order');
+      }
+      if (e.target.matches('.add-to-cart-button')) {
+        const product = e.target.dataset.product;
+        const price = e.target.dataset.price;
+        showModal(product, price, 'cart');
+      }
+    });
+
+    cancelButton.addEventListener('click', hideModal);
+    
+    confirmButton.addEventListener('click', async () => {
+      if (!userId) {
+        alert("Autentikasi gagal, silakan refresh halaman.");
+        return;
+      }
+      const targetLink = targetLinkInput.value.trim();
+      if (!targetLink || !targetLink.startsWith('http')) {
+        alert('Harap masukkan link target yang valid.');
+        return;
+      }
+
+      if (currentAction === 'order') {
+        const whatsappText = `Halo kak, saya mau pesan:\n- Produk: ${currentProduct.name}\n- Harga: Rp ${currentProduct.price.toLocaleString('id-ID')}\n- Link Target: ${targetLink}`;
+        const whatsappUrl = `https://wa.me/6289676930992?text=${encodeURIComponent(whatsappText)}`;
+        window.open(whatsappUrl, '_blank');
+      } else if (currentAction === 'cart') {
+        try {
+          // Simpan ke database Firestore
+          const cartCollectionRef = collection(db, `artifacts/${appId}/users/${userId}/cartItems`);
+          await addDoc(cartCollectionRef, {
+            productName: currentProduct.name,
+            price: currentProduct.price,
+            targetLink: targetLink,
+            createdAt: serverTimestamp()
+          });
+          showToast(`"${currentProduct.name}" ditambahkan ke keranjang!`);
+        } catch (error) {
+          console.error("Error adding document: ", error);
+          alert("Gagal menambahkan ke keranjang. Coba lagi.");
+        }
+      }
+      hideModal();
+    });
+
+    // Fungsi untuk mendengarkan perubahan di keranjang (real-time)
+    function listenToCartChanges() {
+        if (!userId) return;
+        const cartCollectionRef = collection(db, `artifacts/${appId}/users/${userId}/cartItems`);
+        onSnapshot(cartCollectionRef, (snapshot) => {
+            const count = snapshot.size;
+            const badge = document.getElementById("cart-count");
+            if (badge) {
+                badge.style.display = count > 0 ? "block" : "none";
+                badge.textContent = count;
+                // Menambahkan sedikit animasi
+                badge.style.transform = 'scale(1.2)';
+                setTimeout(() => { badge.style.transform = 'scale(1)'; }, 150);
+            }
+        });
+    }
+
+  </script>
 </body>
 </html>
