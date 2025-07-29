@@ -7,30 +7,35 @@
   <link rel="stylesheet" href="../assets/css/style.css">
 </head>
 <body>
+  <!-- Ikon Keranjang -->
   <div style="position: fixed; bottom: 80px; right: 20px; z-index: 9999;">
     <a href="../cart.html" style="position: relative; display: inline-block;">
       <img src="../assets/img/keranjang.png" alt="Keranjang" style="width: 65px; height: 65px;">
       <span id="cart-count"></span>
     </a>
   </div>
+  
   <div class="container">
     <h1>Follower TikTok</h1>
     <div class="bubble">
       <p>Pilih paket sesuai kebutuhan kamu:</p>
       
+        <!-- POLA BARU YANG BENAR -->
         <div class="service-card">
           <p><strong>100 Follower</strong><br>Harga : Rp 8.000</p>
           <div class="button-container">
-            <a href="../inputlink.html?product=100+Follower+TikTok&price=8000&action=order&whatsappText=Order+TikTok+Follower+100+=+Rp+8.000&source=/tiktok/follower.html" class="button">Pesan</a>
-            <a href="../inputlink.html?product=100+Follower+TikTok&price=8000&action=cart&source=/tiktok/follower.html" class="add-to-cart">Tambah ke Keranjang</a>
+            <!-- Tombol Pesan: action=order -->
+            <a href="../inputlink.html?product=100+Follower+TikTok&price=8000&action=order&whatsappText=Order+TikTok+Follower+100+=+Rp+8.000&source=../tiktok/follower.html" class="button">Pesan</a>
+            <!-- Tombol Keranjang: action=cart -->
+            <a href="../inputlink.html?product=100+Follower+TikTok&price=8000&action=cart&source=../tiktok/follower.html" class="add-to-cart">Tambah ke Keranjang</a>
           </div>
         </div>
         
         <div class="service-card">
           <p><strong>200 Follower</strong><br>Harga : Rp 16.000</p>
           <div class="button-container">
-            <a href="../inputlink.html?product=200+Follower+TikTok&price=16000&action=order&whatsappText=Order+TikTok+Follower+200+=+Rp+16.000&source=../tiktok/follower.html" class="button">Pesan</a>
-            <a href="../inputlink.html?product=200+Follower+TikTok&price=16000&action=cart&source=../tiktok/follower.html" class="add-to-cart">Tambah ke Keranjang</a>
+            <a href="/inputlink.html?product=200+Follower+TikTok&price=16000&action=order&whatsappText=Order+TikTok+Follower+200+=+Rp+16.000&source=/tiktok/follower.html" class="button">Pesan</a>
+            <a href="/inputlink.html?product=200+Follower+TikTok&price=16000&action=cart&source=/tiktok/follower.html" class="add-to-cart">Tambah ke Keranjang</a>
           </div>
         </div>
 
@@ -39,8 +44,8 @@
         <div class="service-card">
           <p><strong>1.000 Follower</strong><br>Harga : Rp 80.000</p>
           <div class="button-container">
-            <a href="../inputlink.html?product=1.000+Follower+TikTok&price=80000&action=order&whatsappText=Order+TikTok+Follower+1.000+=+Rp+80.000&source=/tiktok/follower.html" class="button">Pesan</a>
-            <a href="../inputlink.html?product=1.000+Follower+TikTok&price=80000&action=cart&source=/tiktok/follower.html" class="add-to-cart">Tambah ke Keranjang</a>
+            <a href="/inputlink.html?product=1.000+Follower+TikTok&price=80000&action=order&whatsappText=Order+TikTok+Follower+1.000+=+Rp+80.000&source=/tiktok/follower.html" class="button">Pesan</a>
+            <a href="/inputlink.html?product=1.000+Follower+TikTok&price=80000&action=cart&source=/tiktok/follower.html" class="add-to-cart">Tambah ke Keranjang</a>
           </div>
         </div>
         
@@ -49,7 +54,10 @@
     </div>
     <a href="index.html" class="button">Kembali</a>
   </div>
+  
+  <!-- Memuat cart.js untuk memperbarui ikon keranjang -->
   <script src="../assets/js/cart.js"></script>
+  
   <div style="text-align: center; padding: 20px 0; margin-top: 30px; color: #555; font-size: 14px;">
     Disarankan untuk membaca <a href="/syarat-dan-ketentuan.html" style="text-decoration: underline; color: #555;">Syarat dan Ketentuan</a>
   </div>
