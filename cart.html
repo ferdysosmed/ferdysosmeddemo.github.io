@@ -110,8 +110,8 @@
     <div id="cart-summary" style="display: none;">
         <p class="total">Total Harga : Rp <span id="total-price">0</span></p>
         <div class="btn-group">
-          <a href="index.html" class="back-button">Kembali Belanja</a>
-          <a id="whatsapp-link" class="whatsapp-button" href="#" target="_blank">Beli Sekarang via WhatsApp</a>
+          <a href="index.html" class="back-button">Kembali</a>
+          <a id="whatsapp-link" class="whatsapp-button" href="#" target="_blank">Beli Sekarang</a>
         </div>
     </div>
   </div>
@@ -143,10 +143,10 @@
       cart.forEach((item, i) => {
         total += item.price;
         // Susun pesan untuk setiap item
-        message += `*Layanan ${i + 1}:*\n`;
-        message += `- Produk: ${item.product}\n`;
-        message += `- Harga: Rp ${item.price.toLocaleString('id-ID')}\n`;
-        message += `- Link Target: ${item.link}\n\n`;
+        message += `*Layanan ${i + 1}*\n`;
+        message += `- Produk : ${item.product}\n`;
+        message += `- Harga : Rp ${item.price.toLocaleString('id-ID')}\n`;
+        message += `- Link Target : ${item.link}\n\n`;
 
         // Tampilkan setiap item di halaman keranjang
         const div = document.createElement("div");
@@ -154,8 +154,8 @@
         div.innerHTML = `
           <div class="item-details">
             <span>${item.product}</span>
-            <small>Rp ${item.price.toLocaleString('id-ID')}</small>
-            <small>Link: ${item.link}</small>
+            <small>Harga : Rp ${item.price.toLocaleString('id-ID')}</small>
+            <small>Link : ${item.link}</small>
           </div>
           <button onclick="removeItem(${i})">Hapus</button>
         `;
