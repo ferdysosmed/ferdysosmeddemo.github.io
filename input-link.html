@@ -146,10 +146,10 @@
         }
 
         if (action === 'pesan') {
-          let message = `Halo kak, saya mau order:\n\n`;
-          message += `Layanan: *${product}*\n`;
-          message += `Harga: *Rp ${price.toLocaleString('id-ID')}*\n`;
-          message += `Link Target: *${targetLink}*`;
+          let message = `Halo kak, saya mau order.\n\n`;
+          message += `- Produk : *${product}*\n`;
+          message += `- Harga : *Rp ${price.toLocaleString('id-ID')}*\n`;
+          message += `- Link : *${targetLink}*`;
           
           const whatsappUrl = `https://wa.me/6289676930992?text=${encodeURIComponent(message)}`;
           window.location.href = whatsappUrl;
