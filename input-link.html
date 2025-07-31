@@ -45,16 +45,17 @@
         margin: 20px 0;
     }
 
-    /* CSS BARU: Untuk notifikasi popup (toast) */
+    /* CSS untuk notifikasi popup (toast) */
     .toast-popup {
       position: fixed;
       bottom: 30px;
       left: 50%;
       transform: translateX(-50%);
-      background-color: #28a745; /* Warna hijau seperti yang diminta */
+      background-color: #28a745; /* Warna hijau */
       color: white;
       padding: 12px 25px;
-      border-radius: 50px; /* Membuatnya lebih melengkung seperti gelembung */
+      /* PERUBAHAN DI SINI: Mengubah bentuk menjadi persegi dengan sudut melengkung */
+      border-radius: 8px; 
       font-weight: bold;
       text-align: center;
       z-index: 10000;
@@ -73,21 +74,21 @@
 </head>
 <body>
   <div class="container">
-    <h1>Masukkan Link/Username</h1>
+    <h1>Masukkan Link / Username</h1>
     <div class="bubble">
       <div class="product-details">
-        <p>Anda akan memesan:</p>
+        <p>Anda akan memesan :</p>
         <h2 style="margin-top: 5px;" id="product-name">Memuat...</h2>
-        <p>Harga: <strong id="product-price">Memuat...</strong></p>
+        <p>Harga : <strong id="product-price">Memuat...</strong></p>
       </div>
       <hr>
       <form id="link-form">
-        <label for="target-link"><strong>Silakan masukkan URL/Link/Username target di bawah ini:</strong></label>
+        <label for="target-link"><strong>Silakan masukkan URL/Link/Username target di bawah ini.</strong></label>
         <input
           type="text"
           id="target-link"
           class="input-field"
-          placeholder="Contoh: https://tiktok.com/@username"
+          placeholder="https://"
           required
         />
         <button type="submit" class="confirm-button">Konfirmasi Pesanan</button>
@@ -98,30 +99,26 @@
 
   <script src="assets/js/cart.js"></script>
   <script>
-    // FUNGSI BARU: Untuk menampilkan notifikasi popup
+    // Fungsi untuk menampilkan notifikasi popup
     function showToast(message) {
-      // Hapus toast lama jika ada
       const oldToast = document.querySelector('.toast-popup');
       if (oldToast) {
         oldToast.remove();
       }
 
-      // Buat elemen div baru untuk toast
       const toast = document.createElement("div");
       toast.textContent = message;
       toast.className = "toast-popup";
       document.body.appendChild(toast);
 
-      // Tambahkan class 'show' untuk memunculkan toast
       setTimeout(() => {
         toast.classList.add("show");
-      }, 100); // Jeda kecil untuk memastikan transisi berjalan
+      }, 100);
 
-      // Sembunyikan dan hapus toast setelah beberapa detik
       setTimeout(() => {
         toast.classList.remove("show");
-        setTimeout(() => toast.remove(), 500); // Hapus elemen setelah transisi selesai
-      }, 2500); // Notifikasi akan hilang setelah 2.5 detik
+        setTimeout(() => toast.remove(), 500);
+      }, 2500);
     }
 
 
@@ -158,19 +155,16 @@
           window.location.href = whatsappUrl;
 
         } else if (action === 'keranjang') {
-          // PERUBAHAN DI SINI
           let cart = JSON.parse(localStorage.getItem("cart")) || [];
           cart.push({ product: product, price: price, link: targetLink });
           localStorage.setItem("cart", JSON.stringify(cart));
           
-          // Panggil fungsi notifikasi popup, bukan alert
           showToast('Produk berhasil ditambahkan ke keranjang kuning');
           updateCartIcon();
           
-          // Kembali ke halaman sebelumnya setelah notifikasi sempat terlihat
           setTimeout(() => {
             history.back();
-          }, 1500); // Kembali setelah 1.5 detik
+          }, 1500);
         }
       });
     });
