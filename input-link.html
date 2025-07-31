@@ -53,7 +53,7 @@
       <div class="product-details">
         <p>Anda akan memesan.</p>
         <h2 style="margin-top: 5px;" id="product-name">Memuat...</h2>
-        <p>Harga Produk : <strong id="product-price">Memuat...</strong></p>
+        <p>Harga : <strong id="product-price">Memuat...</strong></p>
       </div>
       <hr>
       <form id="link-form">
@@ -105,9 +105,9 @@
         if (action === 'pesan') {
           // AKSI 1: Jika tombol "Pesan" yang diklik, langsung arahkan ke WhatsApp
           let message = `Halo kak, saya mau order:\n\n`;
-          message += `Layanan: *${product}*\n`;
-          message += `Harga: *Rp ${price.toLocaleString('id-ID')}*\n`;
-          message += `Link Target: *${targetLink}*`;
+          message += `- Layanan : *${product}*\n`;
+          message += `- Harga : *Rp ${price.toLocaleString('id-ID')}*\n`;
+          message += `- Link Target : *${targetLink}*`;
           
           const whatsappUrl = `https://wa.me/6289676930992?text=${encodeURIComponent(message)}`;
           window.location.href = whatsappUrl;
