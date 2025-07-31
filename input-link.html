@@ -6,7 +6,7 @@
   <title>Input Link Target - ferdysosmed</title>
   <link rel="stylesheet" href="assets/css/style.css" />
   <style>
-    /* Menambahkan beberapa style khusus untuk halaman ini */
+    /* Style yang sudah ada */
     .input-field {
       width: 100%;
       padding: 12px;
@@ -15,7 +15,7 @@
       border: 1px solid #555;
       background-color: #333;
       color: #e0e0e0;
-      box-sizing: border-box; /* Penting agar padding tidak mengubah lebar total */
+      box-sizing: border-box;
       font-size: 16px;
     }
     .input-field::placeholder {
@@ -44,57 +44,103 @@
         border-color: #444;
         margin: 20px 0;
     }
+
+    /* CSS BARU: Untuk notifikasi popup (toast) */
+    .toast-popup {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #28a745; /* Warna hijau seperti yang diminta */
+      color: white;
+      padding: 12px 25px;
+      border-radius: 50px; /* Membuatnya lebih melengkung seperti gelembung */
+      font-weight: bold;
+      text-align: center;
+      z-index: 10000;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.5s, visibility 0.5s, transform 0.5s;
+    }
+
+    .toast-popup.show {
+      opacity: 1;
+      visibility: visible;
+      transform: translate(-50%, 0);
+    }
   </style>
 </head>
 <body>
   <div class="container">
-    <h1>Masukkan Link / Username</h1>
+    <h1>Masukkan Link/Username</h1>
     <div class="bubble">
       <div class="product-details">
-        <p>Anda akan memesan.</p>
+        <p>Anda akan memesan:</p>
         <h2 style="margin-top: 5px;" id="product-name">Memuat...</h2>
-        <p>Harga : <strong id="product-price">Memuat...</strong></p>
+        <p>Harga: <strong id="product-price">Memuat...</strong></p>
       </div>
       <hr>
       <form id="link-form">
-        <label for="target-link"><strong>Silakan masukkan URL/Link/Username target di bawah ini.</strong></label>
+        <label for="target-link"><strong>Silakan masukkan URL/Link/Username target di bawah ini:</strong></label>
         <input
           type="text"
           id="target-link"
           class="input-field"
-          placeholder="https://"
+          placeholder="Contoh: https://tiktok.com/@username"
           required
         />
         <button type="submit" class="confirm-button">Konfirmasi Pesanan</button>
       </form>
     </div>
-    <!-- Tombol untuk kembali ke halaman sebelumnya -->
     <a href="javascript:history.back()" class="button" style="text-align:center; display:block; margin-top:15px;">Kembali</a>
   </div>
 
   <script src="assets/js/cart.js"></script>
   <script>
+    // FUNGSI BARU: Untuk menampilkan notifikasi popup
+    function showToast(message) {
+      // Hapus toast lama jika ada
+      const oldToast = document.querySelector('.toast-popup');
+      if (oldToast) {
+        oldToast.remove();
+      }
+
+      // Buat elemen div baru untuk toast
+      const toast = document.createElement("div");
+      toast.textContent = message;
+      toast.className = "toast-popup";
+      document.body.appendChild(toast);
+
+      // Tambahkan class 'show' untuk memunculkan toast
+      setTimeout(() => {
+        toast.classList.add("show");
+      }, 100); // Jeda kecil untuk memastikan transisi berjalan
+
+      // Sembunyikan dan hapus toast setelah beberapa detik
+      setTimeout(() => {
+        toast.classList.remove("show");
+        setTimeout(() => toast.remove(), 500); // Hapus elemen setelah transisi selesai
+      }, 2500); // Notifikasi akan hilang setelah 2.5 detik
+    }
+
+
     document.addEventListener('DOMContentLoaded', () => {
-      // Ambil parameter dari URL (dikirim dari halaman produk)
       const params = new URLSearchParams(window.location.search);
       const product = params.get('product');
       const price = parseInt(params.get('price'), 10);
-      const action = params.get('action'); // 'pesan' atau 'keranjang'
+      const action = params.get('action');
 
-      // Jika tidak ada parameter, kembali ke halaman utama
       if (!product || !price || !action) {
-        // PERBAIKAN: Menggunakan path relatif untuk kompatibilitas yang lebih baik.
         window.location.href = 'index.html';
         return;
       }
 
-      // Tampilkan detail produk di halaman
       document.getElementById('product-name').textContent = product;
       document.getElementById('product-price').textContent = `Rp ${price.toLocaleString('id-ID')}`;
 
-      // Logika saat form disubmit
       document.getElementById('link-form').addEventListener('submit', function (e) {
-        e.preventDefault(); // Mencegah form me-reload halaman
+        e.preventDefault();
         const targetLink = document.getElementById('target-link').value.trim();
 
         if (!targetLink) {
@@ -103,25 +149,28 @@
         }
 
         if (action === 'pesan') {
-          // AKSI 1: Jika tombol "Pesan" yang diklik, langsung arahkan ke WhatsApp
           let message = `Halo kak, saya mau order:\n\n`;
-          message += `- Layanan : *${product}*\n`;
-          message += `- Harga : *Rp ${price.toLocaleString('id-ID')}*\n`;
-          message += `- Link Target : *${targetLink}*`;
+          message += `Layanan: *${product}*\n`;
+          message += `Harga: *Rp ${price.toLocaleString('id-ID')}*\n`;
+          message += `Link Target: *${targetLink}*`;
           
           const whatsappUrl = `https://wa.me/6289676930992?text=${encodeURIComponent(message)}`;
           window.location.href = whatsappUrl;
 
         } else if (action === 'keranjang') {
-          // AKSI 2: Jika tombol "Tambah ke Keranjang" yang diklik, simpan ke localStorage
+          // PERUBAHAN DI SINI
           let cart = JSON.parse(localStorage.getItem("cart")) || [];
           cart.push({ product: product, price: price, link: targetLink });
           localStorage.setItem("cart", JSON.stringify(cart));
           
-          // Beri notifikasi dan kembali ke halaman produk
-          alert('Produk berhasil ditambahkan ke keranjang!');
-          updateCartIcon(); // Perbarui ikon keranjang secara instan
-          history.back(); // Kembali ke halaman sebelumnya
+          // Panggil fungsi notifikasi popup, bukan alert
+          showToast('Produk berhasil ditambahkan ke keranjang kuning');
+          updateCartIcon();
+          
+          // Kembali ke halaman sebelumnya setelah notifikasi sempat terlihat
+          setTimeout(() => {
+            history.back();
+          }, 1500); // Kembali setelah 1.5 detik
         }
       });
     });
